@@ -2,13 +2,14 @@ import Gallery from "@/components/Gallery";
 import Hero from "@/components/Hero";
 import { photos } from "@/data/photos";
 
-// Set this to your hero image once it's in public/images, e.g. "/images/hero.jpg"
-const HERO_IMAGE = "/images/hero.jpg";
+// Add more images here (in public/images) and the hero will crossfade
+// through all of them automatically.
+const HERO_IMAGES = [{ src: "/images/hero.jpg", alt: "Sector 3" }];
 
 export default function HomePage() {
   return (
     <>
-      <Hero src={HERO_IMAGE} alt="Sector 3" />
+      <Hero images={HERO_IMAGES} />
       <Gallery photos={photos} />
     </>
   );
