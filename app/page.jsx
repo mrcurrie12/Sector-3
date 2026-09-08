@@ -4,7 +4,11 @@ import { photos } from "@/data/photos";
 
 // Add more images here (in public/images) and the hero will crossfade
 // through all of them automatically.
-const HERO_IMAGES = [{ src: "/images/hero.jpg", alt: "Sector 3" }];
+const HERO_IMAGES = [
+  { src: "/images/hero.jpg", alt: "Sector 3" },
+  { src: "/images/hero-2.jpg", alt: "Sector 3" },
+  { src: "/images/hero-3.jpg", alt: "Sector 3" },
+];
 
 export default function HomePage() {
   return (
