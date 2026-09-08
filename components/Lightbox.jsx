@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
-import PhotoFrame from "./PhotoFrame";
 
 export default function Lightbox({ photo, onClose, onStep }) {
   useEffect(() => {
@@ -40,15 +40,35 @@ export default function Lightbox({ photo, onClose, onStep }) {
         <ChevronRight size={28} />
       </button>
 
-      <div className="flex-1 flex items-center justify-center p-6" onClick={(e) => e.stopPropagation()}>
-        <div className="w-full max-w-3xl">
-          <PhotoFrame photo={photo} priority />
-          <div className="mt-4">
-            <div className="font-display text-xl text-bg">{photo.title}</div>
-            <div className="flex items-center gap-1 mt-1 text-sm text-bg/70">
-              <MapPin size={12} />
-              {photo.location}
-            </div>
+      {/* min-h-0 lets this flex child actually shrink to the space left by
+          the buttons, so the image below is bounded instead of overflowing
+          off-screen. */}
+      <div
+        className="flex-1 min-h-0 flex flex-col items-center justify-center gap-4 p-6"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="relative flex-1 min-h-0 w-full max-w-4xl flex items-center justify-center">
+          {photo.src ? (
+            <Image
+              src={photo.src}
+              alt={photo.title}
+              width={photo.width || 1600}
+              height={photo.height || 1200}
+              priority
+              className="w-auto h-auto max-w-full max-h-full object-contain"
+            />
+          ) : (
+            <div
+              className="w-full max-w-md max-h-full aspect-[4/3]"
+              style={{ background: photo.hue }}
+            />
+          )}
+        </div>
+        <div>
+          <div className="font-display text-xl text-bg">{photo.title}</div>
+          <div className="flex items-center gap-1 mt-1 text-sm text-bg/70">
+            <MapPin size={12} />
+            {photo.location}
           </div>
         </div>
       </div>
