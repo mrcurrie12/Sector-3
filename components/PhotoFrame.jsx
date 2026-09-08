@@ -2,8 +2,12 @@ import Image from "next/image";
 import { MapPin } from "lucide-react";
 
 export default function PhotoFrame({ photo, tall = false, priority = false }) {
+  // Real photos keep their own aspect ratio so nothing gets cropped;
+  // only placeholders (no file yet) fall back to a guessed box shape.
+  const ratio = photo.width && photo.height ? photo.width / photo.height : tall ? 3 / 4 : 4 / 3;
+
   return (
-    <div className={`relative w-full overflow-hidden ${tall ? "aspect-[3/4]" : "aspect-[4/3]"}`}>
+    <div className="relative w-full overflow-hidden" style={{ aspectRatio: ratio }}>
       {photo.src ? (
         <Image
           src={photo.src}

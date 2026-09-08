@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 
-// Full-bleed hero photo (or rotating slider of several), ~85% of viewport
-// tall, no text overlay. Pass a single `src`, or `images` as an array of
+// Full-bleed hero photo (or rotating slider of several), no text overlay.
+// Shorter on phones (70dvh) than desktop (85dvh) so it doesn't eat the
+// whole first screen, and `dvh` keeps that consistent as mobile browser
+// chrome shows/hides. Pass a single `src`, or `images` as an array of
 // { src, alt } to crossfade through them automatically. Leave both unset
 // until a real image is added — a plain placeholder block renders in the
 // meantime so nothing breaks.
@@ -24,7 +26,7 @@ export default function Hero({ src, alt, images }) {
   }, [slides.length]);
 
   return (
-    <div className="relative w-full" style={{ height: "85vh" }}>
+    <div className="relative w-full h-[70dvh] md:h-[85dvh]">
       {slides.length > 0 ? (
         slides.map((slide, i) => (
           <Image
@@ -33,6 +35,7 @@ export default function Hero({ src, alt, images }) {
             alt={slide.alt || "Sector 3"}
             fill
             priority={i === 0}
+            quality={90}
             className="object-cover transition-opacity duration-1000"
             style={{ opacity: i === index ? 1 : 0 }}
             sizes="100vw"
